@@ -31,7 +31,7 @@ router.post("/translate", async (req, res) => {
         headers: {
           "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
-          "HTTP-Referer": "http://localhost:3000/", // change to your domain when deploying
+          "HTTP-Referer": process.env.CLIENT_URL || "http://localhost:3000/", // change to your domain when deploying
           "X-Title": "Multilingual Voice Assistant"
         },
       }

@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://gec-frontend-mocha.vercel.app/"],
+    origin: ["https://gec-frontend-mocha.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true,
   })

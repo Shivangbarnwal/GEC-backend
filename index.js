@@ -8,7 +8,16 @@ require("dotenv").config(); // ✅ MUST BE FIRST
 const app = express();
 
 // Middlewares
-app.use(cors());
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: ["https://gec-frontend-mocha.vercel.app/"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 // Routes

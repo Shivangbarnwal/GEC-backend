@@ -8,7 +8,6 @@ require("dotenv").config(); // ✅ MUST BE FIRST
 const app = express();
 
 // Middlewares
-const cors = require("cors");
 
 app.use(
   cors({

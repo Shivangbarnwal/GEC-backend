@@ -12,14 +12,18 @@ router.post("/translate", async (req, res) => {
   }
 
   try {
-    const prompt = `You are a helpful and friendly AI assistant. The following sentence is in ${targetLanguage}. Understand it and reply in the same language, keeping your response clear, polite, and conversational.
-                    Sentence: "${text}"
-                    Please respond in ${targetLanguage}, ensuring your tone is friendly and natural.`;
+    const prompt = `You are a helpful and friendly AI assistant. 
+The following sentence is in ${targetLanguage}. 
+Understand it and reply in the same language, keeping your response clear, polite, and conversational.
+
+Sentence: "${text}"
+
+Please respond in ${targetLanguage}, ensuring your tone is friendly and natural.`;
 
     const response = await axios.post(
-      "https://openrouter.ai/api/v1/chat/completions",
+      "https://api.perplexity.ai/chat/completions",
       {
-        model: "gpt-3.5-turbo", // you can change to gpt-4 or others if available
+        model: "sonar",       // Change model as desired (ex: "sonar", "sonar-pro", etc.)
         messages: [
           {
             role: "user",
@@ -29,10 +33,8 @@ router.post("/translate", async (req, res) => {
       },
       {
         headers: {
-          "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Authorization": `Bearer ${process.env.PERPLEXITY_API_KEY}`,
           "Content-Type": "application/json",
-          "HTTP-Referer": process.env.CLIENT_URL || "http://localhost:3000/", // change to your domain when deploying
-          "X-Title": "Multilingual Voice Assistant"
         },
       }
     );
@@ -41,7 +43,7 @@ router.post("/translate", async (req, res) => {
 
     res.json({ translatedText });
   } catch (error) {
-    console.error("OpenRouter Translation Error:", error.message);
+    console.error("Perplexity Translation Error:", error.response?.data || error.message);
     res.status(500).json({ error: "Translation failed" });
   }
 });
